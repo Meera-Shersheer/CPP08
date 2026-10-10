@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 21:11:43 by mshershe          #+#    #+#             */
-/*   Updated: 2026/10/10 15:07:50 by mshershe         ###   ########.fr       */
+/*   Updated: 2026/10/10 18:39:51 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ Span::Span():max_N(1)
 }
 Span::Span(unsigned int N)
 {
-	if (N == 0)
-		throw std::runtime_error("The size must be larger than 0");
 	this->max_N = N;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 21:11:35 by mshershe          #+#    #+#             */
-/*   Updated: 2026/10/10 01:10:20 by mshershe         ###   ########.fr       */
+/*   Updated: 2026/10/10 18:59:37 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,12 @@ class Span
 		const std::vector<int>& getNumbers() const;
         int getN() const;
 		
-		//void addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 		template <typename Iterator>
 		void addNumbers(Iterator begin, Iterator end)
 		{
-			while (begin != end)
-			{
-				addNumber(*begin);
-				++begin;
-			}
+			if ((this->getNumbers().size() + std::distance(begin, end)) > max_N)
+				throw std::runtime_error("No space left for any other elements");
+			this->numbers.insert(this->numbers.end(), begin, end);
 		}
 	
 };
