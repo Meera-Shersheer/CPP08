@@ -6,13 +6,20 @@
 /*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 21:11:43 by mshershe          #+#    #+#             */
-/*   Updated: 2026/10/07 02:27:35 by mshershe         ###   ########.fr       */
+/*   Updated: 2026/10/10 01:32:29 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
-Span::Span(unsigned int N): max_N(N)
+		
+Span::Span():max_N(1)
 {
+}
+Span::Span(unsigned int N)
+{
+	if (N == 0)
+		throw std::runtime_error("The size must be larger than 0");
+	this->max_N = N;
 }
 
 Span::Span(const Span& other): max_N(other.max_N), numbers(other.numbers)
@@ -41,42 +48,23 @@ void Span::addNumber(int num)
 		numbers.push_back(num);
 	}
 }
-template <typename it>
-void Span::addNumbers(it begin, it end)
-{
-	int add_range_length = std::distance(begin, end);
-	int i = 0;
-	try
-	{
-		while(i < add_range_length)
-		{
-			addNumber(*begin);
-			begin++;
-			i++;
-		}
-	}
-	catch(const std::exception& e)
-	{
-		throw std::runtime_error("No space left for any other elements");
-	}
-	
-}
+
 long long Span::shortestSpan()
 {
 	long long shortest;
 	long long temp = 0;
 
 	if (numbers.size() == 0)
-		throw std::runtime_error("No elements stored");
+		throw std::runtime_error("The shortest span can't be found : No elements stored");
 	else if(numbers.size() == 1)
-		throw std::runtime_error("There is only one element");
-
-	std::sort(numbers.begin(), numbers.end());
-	shortest = *(numbers.begin() + 1) - *(numbers.begin());
-	for (std::vector<int>::iterator it = numbers.begin() + 1; it < numbers.end(); it++)
+		throw std::runtime_error("The shortest span can't be found : There is only one element");
+	std::vector<int> t = numbers;
+	std::sort(t.begin(), t.end());
+	shortest = *(t.begin() + 1) - *(t.begin());
+	for (std::vector<int>::iterator it = t.begin() + 1; it < t.end() - 1; it++)
 	{
 		temp = *(it + 1) - *(it);
-		shortest = std::min(temp, shortest);
+		shortest = std::min(abs(temp), abs(shortest));
 	} 
 	return (shortest);
 }
@@ -86,13 +74,21 @@ long long Span::longestSpan()
 	long long longest;
 	
 	if (numbers.size() == 0)
-		throw std::runtime_error("No elements stored");
+		throw std::runtime_error("The longest span can't be found : No elements stored");
 	else if(numbers.size() == 1)
-		throw std::runtime_error("There is only one element");
-	
-	std::sort(numbers.begin(), numbers.end());
-	longest = *(numbers.end()) - *(numbers.begin());
+		throw std::runtime_error("The longest span can't be found : There is only one element");
+	std::vector<int> temp = numbers;
+	std::sort(temp.begin(), temp.end());
+	longest = *(temp.end() - 1) - *(temp.begin());
 	return (longest);
 }
 
+const std::vector<int>& Span::getNumbers() const
+{
+	return (this->numbers);
+}
 
+int Span::getN() const
+{
+	return (this->max_N);
+}
