@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshershe <mshershe@student.42amman.com>    +#+  +:+       +#+        */
+/*   By: mshershe <mshershe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 21:11:43 by mshershe          #+#    #+#             */
-/*   Updated: 2026/10/10 01:32:29 by mshershe         ###   ########.fr       */
+/*   Updated: 2026/10/10 15:07:50 by mshershe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
-		
+
 Span::Span():max_N(1)
 {
 }
@@ -64,15 +64,15 @@ long long Span::shortestSpan()
 	for (std::vector<int>::iterator it = t.begin() + 1; it < t.end() - 1; it++)
 	{
 		temp = *(it + 1) - *(it);
-		shortest = std::min(abs(temp), abs(shortest));
-	} 
+		shortest = std::min(std::abs(temp), std::abs(shortest));
+	}
 	return (shortest);
 }
 
 long long Span::longestSpan()
 {
 	long long longest;
-	
+
 	if (numbers.size() == 0)
 		throw std::runtime_error("The longest span can't be found : No elements stored");
 	else if(numbers.size() == 1)
